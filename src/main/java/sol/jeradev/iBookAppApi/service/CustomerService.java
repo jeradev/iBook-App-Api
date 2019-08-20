@@ -3,11 +3,14 @@ package sol.jeradev.iBookAppApi.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import sol.jeradev.iBookAppApi.domain.Customer;
 import sol.jeradev.iBookAppApi.exception.ResourceNotFoundException;
 import sol.jeradev.iBookAppApi.repository.CustomerRepository;
 import sol.jeradev.iBookAppApi.transfer.CreateCustomerRequest;
+import sol.jeradev.iBookAppApi.transfer.GetCustomerRequest;
 import sol.jeradev.iBookAppApi.transfer.UpdateCustomerRequest;
 
 @Service
@@ -52,7 +55,16 @@ public class CustomerService {
         return customerRepository.save(customer);
     }
 
-    public void deleteCustomer(long id){
+    public void deleteCustomer(long id) {
         customerRepository.deleteById(id);
+    }
+
+    public Page<Customer> getCustomer(GetCustomerRequest request, Pageable pageable) {
+        if (request.getPartialName() != null && request.getPhone() != null) {
+            customerRepository.findByFirstNameContainingAndPhone(request.getPartialName(), request.getPhone(), pageable);
+        } else if (request.getPartialName() != null) {
+            return customerRepository.findByFirstNameContainingAndPhone(request.getPartialName(), request.getPhone(), pageable);
+        }
+        return customerRepository.findAll(pageable);
     }
 }
