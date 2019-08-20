@@ -1,5 +1,6 @@
 package sol.jeradev.iBookAppApi.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sol.jeradev.iBookAppApi.domain.Customer;
@@ -11,21 +12,25 @@ import sol.jeradev.iBookAppApi.transfer.CreateCustomerRequest;
 public class CustomerService {
 
     //IoC (inversion of control) and dependency injection
-    private CustomerRepository customerRepository;
+    private final CustomerRepository customerRepository;
+    private final ObjectMapper objectMapper;
 
     @Autowired
-    public CustomerService(CustomerRepository customerRepository) {
+    public CustomerService(CustomerRepository customerRepository, ObjectMapper objectMapper) {
         this.customerRepository = customerRepository;
+        this.objectMapper = objectMapper;
     }
 
     public Customer createCustomer(CreateCustomerRequest request) {
+        Customer customer = objectMapper.convertValue(request, Customer.class);
 
-        Customer customer = new Customer();
+        //This is the same method like before but more efficient - same result
+       /* Customer customer = new Customer();
         customer.setFirstName(request.getFirstName());
         customer.setLastName(request.getLastName());
         customer.setPhone(request.getPhone());
         customer.setPrice(request.getPrice());
-        customer.setPeriod(request.getPeriod());
+        customer.setPeriod(request.getPeriod());*/
         return customerRepository.save(customer);
     }
 
