@@ -10,10 +10,11 @@ import sol.jeradev.iBookAppApi.domain.Customer;
 import sol.jeradev.iBookAppApi.exception.ResourceNotFoundException;
 import sol.jeradev.iBookAppApi.service.CustomerService;
 import sol.jeradev.iBookAppApi.transfer.CreateCustomerRequest;
+import sol.jeradev.iBookAppApi.transfer.UpdateCustomerRequest;
 
-import javax.validation.ConstraintViolationException;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsNull.notNullValue;
 
@@ -34,7 +35,7 @@ public class CustomerServiceIntegrationTests {
         request.setLastName("Popa");
         request.setPhone("0745856965");
         request.setPeriod("1-5 Iulie");
-        request.setPrice("600");
+        request.setPrice(649.99);
 
         Customer createdCustomer = customerService.createCustomer(request);
 
@@ -62,8 +63,41 @@ public class CustomerServiceIntegrationTests {
         assertThat(customer.getId(), is(createdCustomer.getId()));
 
     }
+
     @Test(expected = ResourceNotFoundException.class)
     public void testGetCustomer_whenNonExistingId_thenThrowResourceNotFoundException() throws ResourceNotFoundException {
         customerService.getCustomer(9999L);
+    }
+
+    @Test
+    public void testUpdateProduct_whenValidRequest_thenReturnUpdatedProduct() throws ResourceNotFoundException {
+        Customer createdCustomer = createdCustomer();
+        UpdateCustomerRequest request = new UpdateCustomerRequest();
+        request.setFirstName(createdCustomer.getFirstName() + "Updated");
+        request.setLastName(createdCustomer.getLastName() + "Updated");
+        request.setPhone(createdCustomer.getPhone() + "Updated");
+        request.setPeriod(createdCustomer.getPeriod() + "Updated");
+        request.setPrice(createdCustomer.getPrice() + 10);
+
+        Customer updatedCustomer = customerService.updateProduct(createdCustomer.getId(), request);
+        assertThat(updatedCustomer, notNullValue());
+        assertThat(updatedCustomer.getId(), is(createdCustomer.getId()));
+
+        assertThat(updatedCustomer.getFirstName(), not(is(createdCustomer.getFirstName())));
+        assertThat(updatedCustomer.getFirstName(), is(request.getFirstName()));
+
+        assertThat(updatedCustomer.getLastName(), not(is(createdCustomer.getLastName())));
+        assertThat(updatedCustomer.getLastName(), is(request.getLastName()));
+
+        assertThat(updatedCustomer.getPhone(), not(is(createdCustomer.getPhone())));
+        assertThat(updatedCustomer.getPhone(), is(request.getPhone()));
+
+        assertThat(updatedCustomer.getPeriod(), not(is(createdCustomer.getPeriod())));
+        assertThat(updatedCustomer.getPeriod(), is(request.getPeriod()));
+
+        assertThat(updatedCustomer.getPrice(), not(is(createdCustomer.getPrice())));
+        assertThat(updatedCustomer.getPrice(), is(createdCustomer.getPrice()));
+
+
     }
 }

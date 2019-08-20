@@ -5,7 +5,7 @@ public class CreateCustomerRequest {
     private String lastName;
     private String phone;
     private String period;
-    private String price;
+    private double price;
 
     public String getFirstName() {
         return firstName;
@@ -39,11 +39,11 @@ public class CreateCustomerRequest {
         this.period = period;
     }
 
-    public String getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 

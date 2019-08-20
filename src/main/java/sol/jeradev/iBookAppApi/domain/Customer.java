@@ -19,7 +19,7 @@ public class Customer {
     private String phone;
     @NotNull
     private String period;
-    private String price;
+    private double price;
 
     public Long getId() {
         return id;
@@ -61,11 +61,11 @@ public class Customer {
         this.period = period;
     }
 
-    public String getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 }

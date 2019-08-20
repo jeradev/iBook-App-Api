@@ -5,7 +5,7 @@ public class UpdateCustomerRequest {
     private String lastName;
     private String phone;
     private String period;
-    private String price;
+    private double price;
 
     public String getFirstName() {
         return firstName;
@@ -39,13 +39,9 @@ public class UpdateCustomerRequest {
         this.period = period;
     }
 
-    public String getPrice() {
-        return price;
-    }
+    public double getPrice() {return price;}
 
-    public void setPrice(String price) {
-        this.price = price;
-    }
+    public void setPrice(double price) {this.price = price;}
 
     @Override
     public String toString() {
