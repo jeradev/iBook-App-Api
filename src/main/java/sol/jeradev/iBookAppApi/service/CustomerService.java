@@ -1,12 +1,14 @@
 package sol.jeradev.iBookAppApi.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sol.jeradev.iBookAppApi.domain.Customer;
 import sol.jeradev.iBookAppApi.exception.ResourceNotFoundException;
 import sol.jeradev.iBookAppApi.repository.CustomerRepository;
 import sol.jeradev.iBookAppApi.transfer.CreateCustomerRequest;
+import sol.jeradev.iBookAppApi.transfer.UpdateCustomerRequest;
 
 @Service
 public class CustomerService {
@@ -40,5 +42,17 @@ public class CustomerService {
                 //using Lambda expressions
                 .orElseThrow(() -> new ResourceNotFoundException("Customer" + id + "does not exist."));
 
+    }
+
+    public Customer updateProduct(long id, UpdateCustomerRequest request) throws ResourceNotFoundException {
+        Customer customer = getCustomer(id);
+
+        BeanUtils.copyProperties(request, customer);
+
+        return customerRepository.save(customer);
+    }
+
+    public void deleteCustomer(long id){
+        customerRepository.deleteById(id);
     }
 }
