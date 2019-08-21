@@ -47,7 +47,7 @@ public class CustomerService {
 
     }
 
-    public Customer updateProduct(long id, UpdateCustomerRequest request) throws ResourceNotFoundException {
+    public Customer updateCustomer(long id, UpdateCustomerRequest request) throws ResourceNotFoundException {
         Customer customer = getCustomer(id);
 
         BeanUtils.copyProperties(request, customer);

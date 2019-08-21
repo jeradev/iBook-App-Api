@@ -23,7 +23,7 @@ public class GetCustomerRequest {
     @Override
     public String toString() {
         return "GetCustomerRequest{" +
-                "partianName='" + partialName + '\'' +
+                "partialName='" + partialName + '\'' +
                 ", phone='" + phone + '\'' +
                 '}';
     }

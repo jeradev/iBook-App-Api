@@ -19,6 +19,7 @@ public class Customer {
     private String phone;
     @NotNull
     private String period;
+    @NotNull
     private double price;
 
     public Long getId() {

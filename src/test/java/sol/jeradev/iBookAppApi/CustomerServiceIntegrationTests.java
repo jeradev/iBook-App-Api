@@ -12,7 +12,6 @@ import sol.jeradev.iBookAppApi.service.CustomerService;
 import sol.jeradev.iBookAppApi.transfer.CreateCustomerRequest;
 import sol.jeradev.iBookAppApi.transfer.UpdateCustomerRequest;
 
-
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -73,13 +72,13 @@ public class CustomerServiceIntegrationTests {
     public void testUpdateProduct_whenValidRequest_thenReturnUpdatedProduct() throws ResourceNotFoundException {
         Customer createdCustomer = createdCustomer();
         UpdateCustomerRequest request = new UpdateCustomerRequest();
-        request.setFirstName(createdCustomer.getFirstName() + "Updated");
-        request.setLastName(createdCustomer.getLastName() + "Updated");
-        request.setPhone(createdCustomer.getPhone() + "Updated");
-        request.setPeriod(createdCustomer.getPeriod() + "Updated");
-        request.setPrice(createdCustomer.getPrice() + 10);
+        request.setFirstName(createdCustomer.getFirstName());
+        request.setLastName(createdCustomer.getLastName());
+        request.setPhone(createdCustomer.getPhone());
+        request.setPeriod(createdCustomer.getPeriod());
+        request.setPrice(createdCustomer.getPrice());
 
-        Customer updatedCustomer = customerService.updateProduct(createdCustomer.getId(), request);
+        Customer updatedCustomer = customerService.updateCustomer(createdCustomer.getId(), request);
         assertThat(updatedCustomer, notNullValue());
         assertThat(updatedCustomer.getId(), is(createdCustomer.getId()));
 
@@ -94,10 +93,6 @@ public class CustomerServiceIntegrationTests {
 
         assertThat(updatedCustomer.getPeriod(), not(is(createdCustomer.getPeriod())));
         assertThat(updatedCustomer.getPeriod(), is(request.getPeriod()));
-
-        assertThat(updatedCustomer.getPrice(), not(is(createdCustomer.getPrice())));
-        assertThat(updatedCustomer.getPrice(), is(createdCustomer.getPrice()));
-
-
     }
+
 }

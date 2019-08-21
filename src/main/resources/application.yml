@@ -9,5 +9,4 @@ spring:
   jpa:
     hibernate.ddl-auto: update
     database-platform: org.hibernate.dialect.PostgreSQLDialect
-
 #drop n create table again, good for testing, comment this in production
