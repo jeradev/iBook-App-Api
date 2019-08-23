@@ -1,10 +1,17 @@
 package sol.jeradev.iBookAppApi.transfer;
 
+import javax.validation.constraints.NotNull;
+
 public class UpdateCustomerRequest {
+    @NotNull
     private String firstName;
+    @NotNull
     private String lastName;
+    @NotNull
     private String phone;
+    @NotNull
     private String period;
+    @NotNull
     private double price;
 
     public String getFirstName() {

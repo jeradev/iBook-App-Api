@@ -27,6 +27,7 @@ public class CustomerController {
 
         this.customerService = customerService;
     }
+
     //endpoint
     @GetMapping
     public ResponseEntity<Page<Customer>> getCustomer(GetCustomerRequest request, Pageable pageable) {

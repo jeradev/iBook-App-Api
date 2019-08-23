@@ -13,6 +13,8 @@ import sol.jeradev.iBookAppApi.transfer.CreateCustomerRequest;
 import sol.jeradev.iBookAppApi.transfer.GetCustomerRequest;
 import sol.jeradev.iBookAppApi.transfer.UpdateCustomerRequest;
 
+import javax.transaction.Transactional;
+
 @Service
 public class CustomerService {
 
@@ -67,4 +69,6 @@ public class CustomerService {
         }
         return customerRepository.findAll(pageable);
     }
+
+
 }

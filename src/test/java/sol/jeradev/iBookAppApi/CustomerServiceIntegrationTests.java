@@ -16,6 +16,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsNull.notNullValue;
+import static org.hamcrest.number.OrderingComparison.greaterThan;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -39,6 +40,8 @@ public class CustomerServiceIntegrationTests {
         Customer createdCustomer = customerService.createCustomer(request);
 
         assertThat(createdCustomer, notNullValue());
+        assertThat(createdCustomer.getId(), greaterThan(0L));
+        assertThat(createdCustomer.getId(), is(createdCustomer.getId()));
         assertThat(createdCustomer.getFirstName(), is(request.getFirstName()));
         assertThat(createdCustomer.getLastName(), is(request.getLastName()));
         assertThat(createdCustomer.getPhone(), is(request.getPhone()));
